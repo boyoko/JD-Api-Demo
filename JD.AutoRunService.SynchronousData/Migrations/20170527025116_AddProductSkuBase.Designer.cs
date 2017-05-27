@@ -8,9 +8,10 @@ using JD.AutoRunService.SynchronousData;
 namespace JD.AutoRunService.SynchronousData.Migrations
 {
     [DbContext(typeof(JDProductContext))]
-    partial class JDProductContextModelSnapshot : ModelSnapshot
+    [Migration("20170527025116_AddProductSkuBase")]
+    partial class AddProductSkuBase
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.1.2")

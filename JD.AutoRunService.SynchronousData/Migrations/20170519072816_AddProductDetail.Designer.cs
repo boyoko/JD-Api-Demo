@@ -8,9 +8,10 @@ using JD.AutoRunService.SynchronousData;
 namespace JD.AutoRunService.SynchronousData.Migrations
 {
     [DbContext(typeof(JDProductContext))]
-    partial class JDProductContextModelSnapshot : ModelSnapshot
+    [Migration("20170519072816_AddProductDetail")]
+    partial class AddProductDetail
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.1.2")
@@ -86,22 +87,6 @@ namespace JD.AutoRunService.SynchronousData.Migrations
                     b.HasKey("ProductSkuId");
 
                     b.ToTable("ProductSku");
-                });
-
-            modelBuilder.Entity("JD.AutoRunService.SynchronousData.ProductSkuBase", b =>
-                {
-                    b.Property<string>("ProductSkuId")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<int>("PageNum");
-
-                    b.Property<string>("ProductPoolId");
-
-                    b.Property<string>("SkuIds");
-
-                    b.HasKey("ProductSkuId");
-
-                    b.ToTable("ProductSkuBase");
                 });
         }
     }
