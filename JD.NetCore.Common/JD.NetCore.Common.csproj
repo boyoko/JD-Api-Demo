@@ -5,6 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="EnterpriseLibrary.TransientFaultHandling.Core" Version="1.0.0" />
     <PackageReference Include="NEST" Version="5.4.0" />
     <PackageReference Include="Newtonsoft.Json" Version="10.0.2" />
     <PackageReference Include="StackExchange.Redis" Version="1.2.3" />

@@ -16,7 +16,12 @@ namespace JD.AutoRunService.SynchronousData
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             //optionsBuilder.UseSqlServer(@"Data Source=123.57.21.63;Initial Catalog=EFGetStarted.ConsoleApp.NewDb;User ID=sa;Password=Happy2016;MultipleActiveResultSets=true");
-            optionsBuilder.UseSqlServer(@"Data Source=.;Initial Catalog=EFGetStarted.ConsoleApp.NewDb;User ID=sa;Password=Sa123456;MultipleActiveResultSets=true");
+            optionsBuilder.UseSqlServer(@"Data Source=.;Initial Catalog=EFGetStarted.ConsoleApp.NewDb;User ID=sa;Password=123456;MultipleActiveResultSets=true");
+            /*
+             The configured execution strategy 'SqlServerRetryingExecutionStrategy' does not support user initiated transactions. Use the execution strategy returned by 'DbContext.Database.CreateExecutionStrategy()' to execute all the operations in the transaction as a retriable unit.
+             */
+            //optionsBuilder.UseSqlServer(@"Data Source=.;Initial Catalog=EFGetStarted.ConsoleApp.NewDb;User ID=sa;Password=123456;MultipleActiveResultSets=true"
+            //       , options => options.EnableRetryOnFailure());
         }
     }
 

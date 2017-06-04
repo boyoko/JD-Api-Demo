@@ -153,6 +153,12 @@ namespace JD.NetCore.SDK
                 dic.Add("token", token);
                 dic.Add("pageNum", pageNum);
                 var x = await HttpHelper.HttpClientPost(url, dic);
+                //调用京东接口报错
+                if (string.IsNullOrWhiteSpace(x))
+                {
+                    return x;
+                }
+
                 var result = ConvertJsonToResult<string>(x);
                 return result;
             }
@@ -205,6 +211,11 @@ namespace JD.NetCore.SDK
                 dic.Add("sku", sku);
                 dic.Add("isShow", isShow.ToString());
                 var x = await HttpHelper.HttpClientPost(url, dic);
+                //调用京东接口报错
+                if (string.IsNullOrWhiteSpace(x))
+                {
+                    return null;
+                }
                 var result = ConvertJsonToResult<ProductDetailResult>(x);
                 return result;
             }

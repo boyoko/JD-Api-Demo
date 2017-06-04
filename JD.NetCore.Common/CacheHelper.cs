@@ -1,4 +1,5 @@
-﻿using StackExchange.Redis;
+﻿using Newtonsoft.Json;
+using StackExchange.Redis;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -37,6 +38,33 @@ namespace JD.NetCore.Common
                 expiry = TimeSpan.FromDays(1);
             }
             return await _db.StringSetAsync(key, value, expiry);
+        }
+
+        public static async Task SetList<T>(string key, List<T> value, TimeSpan? expiry = null)
+        {
+            if (expiry == null)
+            {
+                expiry = TimeSpan.FromDays(1);
+            }
+            foreach (var single in value)
+            {
+                var s = JsonConvert.SerializeObject(single); //序列化
+                await _db.ListRightPushAsync(key, s); //要一个个的插入
+            }
+        }
+
+        public List<T> ListGet<T>(string key)
+        {
+       //ListRange返回的是一组字符串对象
+       //需要逐个反序列化成实体
+            var vList = _db.ListRange(key);
+            List<T> result = new List<T>();
+            foreach (var item in vList)
+            {
+                var model = JsonConvert.DeserializeObject<T>(item); //反序列化
+                result.Add(model);
+            }
+            return result;
         }
 
         public static async Task<bool> Remove(string key,string value)

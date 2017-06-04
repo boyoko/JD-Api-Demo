@@ -16,9 +16,13 @@ namespace JD.NetCore.Common
             {
                 var handler = new HttpClientHandler() { AutomaticDecompression = DecompressionMethods.GZip };
                 //创建HttpClient（注意传入HttpClientHandler）  
-                using (var http = new HttpClient(handler))
+                //using (var http = new HttpClient(handler))
+                //http://blog.devscrum.net/index.php/2014/05/11/building-a-transient-retry-handler-for-the-net-httpclient/
+                using (var http = new HttpClient(new RetryDelegatingHandler(new HttpClientHandler()), false))
                 {
+                    http.DefaultRequestHeaders.Connection.Add("keep-alive");
                     var content = new FormUrlEncodedContent(dic);
+                    http.Timeout = TimeSpan.FromSeconds(200);
                     //await异步等待回应  
                     var response = await http.PostAsync(url, content);
                     //确保HTTP成功状态值  
@@ -27,11 +31,12 @@ namespace JD.NetCore.Common
                     return msg;
                 }
             }
-            catch(Exception e)
+            catch(Exception)
             {
-                throw e;
+                return null;
             }
             
+
         }
 
 
